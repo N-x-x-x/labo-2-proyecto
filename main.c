@@ -2,8 +2,8 @@
 Proyecto realizado por:
 Paulo Gaston Meira Strazzolini
 Carolina Villalba
-Nelyer Jose Narvaez Briceño
-Eros Khalil Berón
+Nelyer Jose Narvaez Briceï¿½o
+Eros Khalil Berï¿½n
 **/
 
 #include <stdio.h>
@@ -19,7 +19,7 @@ struct registro
     char zona[30];
     char ciudad[30];
     int dormitorios;
-    int banos; //baños
+    int banos; //baï¿½os
     float superficieTotal;
     float superficieCubierta;
     float precio;
@@ -30,7 +30,7 @@ struct registro
     int activo;
 };
 
-void imprimoTodo(struct registro reg) //tras mucho trabajo al fin logre que printeara todo bien lindo //cabecera
+void imprimoTodo(struct registro reg) 
 {
     FILE*arch;
     arch = fopen("propiedades.dat","rb");
@@ -65,7 +65,7 @@ void imprimoTodo(struct registro reg) //tras mucho trabajo al fin logre que prin
 //    char FEHCA_OUT[]="FEHCA OUT";
 //    char ACTIVO[]="ACTIVO";
     //printf("| %10s - %10s - %10s - %10s - %10s - %10s - %10s - %10s - %10s - %10s - %10s - %10s - %10s - %10s |\n",id,FECHA_IN,ZONA,CIUDAD,DORM,BAN,SUP_TOT,SUP_CUB,PRECIO,MONEDA,TIPO_PROP,OP,FEHCA_OUT,ACTIVO);
-    //quiza descontar los espacios por lo que ocupa un caracter
+    
 }
 
 void impresionEspecificaCabecera()
@@ -184,11 +184,11 @@ int bajaFisica()
     //fflush(stdin);
     printf("--------------------------------------------------------------\n");
 
-    if (estado == 1){ //continua proceso,//esto me costo un monton
+    if (estado == 1){ 
 
         int currentId=1;
 
-        fseek(arch,0,SEEK_SET); //primero, me pone el puntero al inicio, por si acaso
+        fseek(arch,0,SEEK_SET); 
 
         while(!feof(arch)) {
 
@@ -201,7 +201,7 @@ int bajaFisica()
 
             fseek(arch,sizeof(struct registro)*(currentId-1),SEEK_SET);
 
-            //fseek(arch,-sizeof(struct registro),SEEK_CUR); //me posiciono la posicion anterior
+            //fseek(arch,-sizeof(struct registro),SEEK_CUR); //me posiciono a la anterior
 
             aux.id=reg.id;
             strcpy(aux.fechaEntrada,reg.fechaEntrada);
@@ -235,63 +235,16 @@ int bajaFisica()
 
             fwrite(&reg,sizeof(struct registro),1,arch); //escribo el struct
 
-            fflush(stdin); //fflush random
+            fflush(stdin); //fflush 
 
-            //fseek(arch,sizeof(struct registro),SEEK_CUR);//vuelvo poner el puntero adelante, para seguir leyendo el archivo
-
-            //SEEK_CUR me mueve el puntero que lee el archivo y como me lo mueve donde quiero puedo ahcer eso
-
+            
             archivoFisica(aux);//aqui paso a agregar algo al archivo o generarlo y guardarlo
 
             }
             currentId++;
         }
 
-        /* ORIGINAl -> ERROR -> SOLO BAJA UNA PROPIEDAD POR MAS QUE HAYA VARIOS CON ACTIVO 0 (o no baja la propiedad final?)
-        while(fread(&reg,sizeof(struct registro), 1, arch) == 1){//leo el struct
-
-            if(reg.activo == 0 && reg.dormitorios > 0){//veo si es uno cargado con activo en 0
-            fseek(arch,-sizeof(struct registro),SEEK_CUR);//me posiciono la posicion anterior
-
-            aux.id=reg.id;
-            strcpy(aux.fechaEntrada,reg.fechaEntrada);
-            strcpy(aux.zona,reg.zona);
-            strcpy(aux.ciudad,reg.ciudad);
-            aux.dormitorios=reg.dormitorios;
-            aux.banos=reg.banos;
-            aux.superficieTotal=reg.superficieTotal;
-            aux.superficieCubierta=reg.superficieCubierta;
-            aux.precio=reg.precio;
-            strcpy(aux.moneda,reg.moneda);
-            strcpy(aux.tipoPropiedad,reg.tipoPropiedad);
-            strcpy(aux.operacion,reg.operacion);
-            strcpy(aux.fechaSalida,reg.fechaSalida);
-            aux.activo=0;
-
-            reg.id=0;
-            strcpy(reg.fechaEntrada,"");
-            strcpy(reg.zona,"");
-            strcpy(reg.ciudad,"");
-            reg.dormitorios=0;
-            reg.banos=0;
-            reg.superficieTotal=0;
-            reg.superficieCubierta=0;
-            reg.precio=0;
-            strcpy(reg.moneda,"");
-            strcpy(reg.tipoPropiedad,"");
-            strcpy(reg.operacion,"");
-            strcpy(reg.fechaSalida,"");
-            reg.activo=0;
-            fwrite(&reg,sizeof(struct registro),1,arch);//escribo el struct
-            fseek(arch,sizeof(struct registro),SEEK_CUR);//vuelvo poner el puntero adelante, para seguir leyendo el archivo
-            //SEEK_CUR me mueve el puntero que lee el archivo y como me lo mueve donde quiero puedo ahcer eso
-
-            archivoFisica(aux);//aqui paso a agregar algo al archivo o generarlo y guardarlo
-
-            }
-        }
-        */
-
+        
         //fclose(arch);//termino y cierro
         listarActivos();
     } else if(estado == 2){//cancela proceso
@@ -324,7 +277,7 @@ int bajaLogica()
 
     while(flag==1)
     {
-        if (baja_logica_id <= 0) //si es 0 (pq no hay id 0 pq me da la gana) o si es un numero negativo
+        if (baja_logica_id <= 0) //si es 0 o si es un numero negativo
         {
             printf("El ID que ingreso es invalido, vuelva a ingresarlo: ");
             scanf("%d",&baja_logica_id);
@@ -360,7 +313,7 @@ int bajaLogica()
                 if(baja_logica_id == 0 && reg.dormitorios == 0){//para salvar el 0 cuando este lleno y evitar letras
                     printf("Error presiono una letra o busco un id 0 sin campos\n");
                     fclose(arch);
-                    return 1;//remina la funcion
+                    return 1;//termina la funcion
                 }
 
                 impresionEspecificaCabecera();
@@ -380,7 +333,7 @@ int bajaLogica()
 
                 if (confirmacion == 0)
                 {
-                    //lo copie de lo de ros posiacaso pongo todo
+                    
                     char fechaActual[15];
                     clearBuffer(fechaActual,15);
                     clearBuffer(reg.fechaSalida,15);
@@ -485,7 +438,7 @@ int alta()
     clearBuffer(buffer,30);
 
     do
-    { /**VALIDACION CAMPO BAÑOS**/
+    { /**VALIDACION CAMPO BAÃ‘OS**/
         printf("\nIngrese cantidad de ba%cos de la propiedad\n",164);
         fgets(buffer,30,stdin);
         fflush(stdin);
@@ -591,14 +544,13 @@ int alta()
         case 3: strcpy(aux.operacion,"Alquiler temporal\0");
     }
 
-    ///LA FECHA DE SALIDA SE INGRESA LUEGO?SI->CAMPO FECHA SALIDA DEBE SER TIPO STRING
+    
 
-    strcpy(aux.fechaSalida," \0"); ///warnig
+    strcpy(aux.fechaSalida," \0"); 
 
     aux.activo=1;
 
-    ///FALTA->???->EN LOS CAMPOS ZONA Y CIUDAD CONSULTAR QUE TIPOS DE DATOS SE VAN A PODER INGRESAR (SOLO LETRAS Y PUNTOS O ALGUN NUMERO TMB?)
-
+    
     impresionEspecificaCabecera();
     impresionEspecifica(aux);
 
@@ -808,7 +760,7 @@ int modificarFechaSalida() {
     fclose(fptr);
 }
 
-int modificarCiudad() { ///controlar que no deje mod una propeidad que este de baja
+int modificarCiudad() { 
     struct registro reg;
     int posi;
     int estado = 0; ///voy a manejar 3 estados -> flag
@@ -1073,9 +1025,9 @@ int listarTipoPropiedad() {
 
     struct registro reg;
     FILE*arch;
-    arch = fopen("propiedades.dat","rb");//solo voy a printar los campos activos
+    arch = fopen("propiedades.dat","rb");
 
-    if (arch == NULL) { //control al abrir y si todo sale bien continuo con lo que quiero hacer
+    if (arch == NULL) { //control al abrir 
         printf("ERROR 001: Archivo inexistente\n");
         fclose(arch);
         return 1;
@@ -1242,14 +1194,6 @@ int listarRangoFecha() {
     fflush(stdin);
 
 
-    /* VALIDACION DE FECHA PARA AÑO COMERCIAL
-    if(maxDD==0 || maxMM==0 || maxYY==0) {
-        printf("Error: La fecha ingresada no es valida :/\n");
-        return 1;
-    } else if(maxDD>30 || maxDD<1 || maxMM>12 || maxMM<1) {
-        printf("Error: La fecha ingresada no es valida, mes o a%co exceden :/\n",164);
-        return 1;
-    }*/
 
     if(maxDD==0 || maxMM==0 || maxYY==0) { ///VALIDACION DE FECHA PARA CALENDARIO GREGORIANO
         printf("ERROR 006: La fecha ingresada no es valida :/\n");
@@ -1303,15 +1247,7 @@ int listarRangoFecha() {
         return 1;
     }
 
-    /*
-    char placeHolder[15];
-    obtenerFecha(placeHolder);
-    printf("%s\n",placeHolder);
-
-    fflush(stdin);
-    sscanf(placeHolder,"%d-%d-%d",&a,&b,&c);
-    printf("%d %d %d\n",a,b,c);
-    */
+    
 
     fseek(fptr,0,SEEK_SET);
 
@@ -1325,14 +1261,7 @@ int listarRangoFecha() {
         fflush(stdin);
         sscanf(aux.fechaEntrada,"%d-%d-%d",&a,&b,&c);
 
-        /*
-        if(c==minYY && b>=minMM) {
-            if(b==minMM && a>=minDD) {
-                if(a==minDD) {
-                    printf();
-                }
-            }
-        }*/
+        
 
         if(c==minYY && c==maxYY) {
             if(b==minMM && b==maxMM) {
@@ -1408,9 +1337,9 @@ void abreSubMenu()
     {
         opcion=-1;
         printf("-------------------------------\n");
-        printf("Selecione la opci%cn: \n",162); //ponerlo lindo
+        printf("Selecione la opci%cn: \n",162); 
         printf("1. Listar todo \n");
-        printf("2. Listar campos activos\n"); //mostrar solo campos activos
+        printf("2. Listar campos activos\n"); 
         printf("3. Listar por tipo de propiedad\n");
         printf("4. Listar por tiempo de ingreso\n");
         printf("5. Listar bajas \n");
@@ -1418,7 +1347,7 @@ void abreSubMenu()
         printf("-------------------------------\n");
         scanf("%d",&opcion);
         fflush(stdin);
-        switchLista(opcion); //funciona pq la funcion solo evalua que hago despues siempre vuelve a aqui asi salto
+        switchLista(opcion); 
     }
 }
 
@@ -1484,7 +1413,7 @@ int buscar()
             }
         }
         //Mensaje al no encontrar propiedad con ID solicitado
-        if(flag==0)// ete if e nuevo
+        if(flag==0)
         {
             printf("No se han encontrado propiedad con campo solicitado (busco un ID que no existe)\n\n");
         }
@@ -1591,7 +1520,7 @@ int buscar()
             }
 
             //Mensaje si no encuentra ninguna propiedad con los campos solicitados
-            if(!opcion==0 && flag==0)//ete tmb
+            if(!opcion==0 && flag==0)
             {
                 printf("No se han encontrado propiedad con campo solicitado\n");
             }
@@ -1624,31 +1553,7 @@ int main()
     int banderaFCrea=0;
     int opcion=1;
 
-    /* CARGAR FECHAS EN EL ARCHIVO
-
-     FILE *arch;
-    arch=fopen("propiedades.dat","r+b");
-
-    int i;
-    int dim=5;
-    struct registro aux[dim];
-
-    for(i=1;i<dim;i++) {
-        aux[i].id=i;
-    }
-
-    strcpy(aux[1].fechaEntrada,"1-1-2000");
-    strcpy(aux[2].fechaEntrada,"10-9-2023");
-    strcpy(aux[3].fechaEntrada,"11-5-2011");
-    strcpy(aux[4].fechaEntrada,"25-3-2024");
-    strcpy(aux[5].fechaEntrada,"1-1-2050");
-
-    fseek(arch,0,SEEK_SET);
-    fwrite(&aux,dim,sizeof(struct registro),arch);
-
-    fclose(arch);
-    */
-
+    
     while(opcion!=0)
     {
         opcion = menuPrincipal();
